@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Xunit;
 
 namespace MyApp.Tests
@@ -45,6 +46,24 @@ namespace MyApp.Tests
             expected = false;
             actual = Program.IsLeapYear(500);
             Assert.Equal(expected,actual);
+        }
+
+        [Fact]
+        public void UserInputTestLeapYearFunction()
+        {
+            var input = new StringReader("2022");
+            Console.SetIn(input);
+            
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            Program.Main();
+
+            var actual = output.ToString();
+
+            var expected = "nay";
+            Assert.Contains(expected,actual);
+
         }
     }
 }
