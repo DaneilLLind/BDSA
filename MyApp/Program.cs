@@ -7,16 +7,31 @@ namespace MyApp
         public static void Main()
         {
             Console.WriteLine("Enter a year to check if leap year");
+            InputHandler();
+        }
+
+        public static void InputHandler()
+        {
             string yearString = Console.ReadLine();
-            int year = int.Parse(yearString);
-            Console.WriteLine(IsLeapYear(year) ? "yay" : "nay");
+            try
+            {
+                int year = int.Parse(yearString);
+                if (year >= 1582) Console.WriteLine(IsLeapYear(year) ? "yay" : "nay");
+                else Console.WriteLine("Please enter a year after 1582");
+            }
+            catch (System.FormatException)
+            {
+                Console.WriteLine("Please enter an integer");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Something went wrong");
+            }
         }
 
         public static bool IsLeapYear(int year)
         {
-            if (year % 400 == 0) return true;
-            if (year % 100 == 0) return false;
-            return year % 4 == 0;
+            return year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
         }
     }
 }
